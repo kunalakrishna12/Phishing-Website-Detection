@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="{url_for('static', filename='style.css')}">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phishing Site Prediction</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <style>
+    /* Global Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body styles with gradient background */
+    body {
+      background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+      height: 100vh;
+      font-family: 'Raleway', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      animation: fadeIn 1.5s ease-in-out; /* Fade-in animation */
+    }
+
+    /* Welcome Text Styles */
+    .welcome {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    /* Input Form Styles with Slide-in animation */
+    @keyframes slideIn {
+      0% {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .userinput {
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      animation: slideIn 1.5s ease-out;
+    }
+
+    /* Input Field Styles */
+    #url {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    /* Hover Effect on Input Field */
+    #url:hover {
+      transform: scale(1.05);
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Button Styles with Hover and Animation */
+    .button {
+      background-color: #00bf72;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    /* Hover Effect on Button */
+    .button:hover {
+      background-color: #009f5a;
+      transform: scale(1.1);
+    }
+
+    /* Loading Spinner Styles */
+    .button:disabled {
+      background-color: #6c757d;
+      cursor: not-allowed;
+    }
+
+    .button .spinner {
+      border: 2px solid transparent;
+      border-top: 2px solid #fff;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      animation: spin 1s linear infinite;
+      margin-left: 10px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Prediction Result Fade-in */
+    @keyframes fadeInResult {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      text-align: center;
+      opacity: 0; /* Initially hidden */
+      animation: fadeInResult 1s ease-out forwards; /* Ensures the result fades in */
+    }
+
+    /* Fade-in Effect on Body */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <br><br><br><br>
+  <div class="welcome">
+    <h2 style="color: #f7e5e5d7;">Phishing Site Prediction</h2>
+  </div>
+
+  <div class="userinput">
+    <h2>Enter URL</h2>
+    <br>
+    <form action='/predict' method="post" autocomplete="off">
+      <div class="input">
+        <input id="url" name="z1" type="text" width="30" height="100" size="50" required><br>
+        <button class="button" type="submit" id="submitButton">Predict
+          <span class="spinner" style="display: none;"></span>
+        </button>
+      </div>
+    </form>
+    <br><br>
+    <div id='result'>
+      {{ prediction_text }}
+    </div>
+  </div>
+
+</body>
+
+</html>
